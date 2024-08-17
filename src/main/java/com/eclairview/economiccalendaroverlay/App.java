@@ -3,13 +3,25 @@ package com.eclairview.economiccalendaroverlay;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
+import java.io.InputStream;
 
 public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        // Load the icon using InputStream
+        InputStream iconStream = getClass().getResourceAsStream("/icon/app-icon.png");
+        if (iconStream == null) {
+            System.err.println("Resource not found! Please check the path.");
+        } else {
+            Image icon = new Image(iconStream);
+            primaryStage.getIcons().add(icon);
+        }
+
         // Create a Label to display some text
         Label label = new Label("EclairView - Economic Calendar");
 
