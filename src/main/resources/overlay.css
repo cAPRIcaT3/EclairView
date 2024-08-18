@@ -1,0 +1,24 @@
+/* overlay.css */
+
+.close-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 5px;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+}
+
+.close-button:hover {
+    -fx-background-color: rgba(255, 0, 0, 0.7);
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(255, 0, 0, 0.8), 10, 0.5, 0, 0);
+}
+
+.close-button:pressed {
+    -fx-background-color: rgba(255, 106, 116, 1);
+    -fx-effect: none;
+}
