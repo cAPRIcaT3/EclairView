@@ -8,8 +8,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.openjfx:javafx-controls:17'
-    implementation 'org.openjfx:javafx-fxml:17'
+    implementation 'org.openjfx:javafx-controls:20'
+    implementation 'org.openjfx:javafx-fxml:20'
+    implementation "org.openjfx:javafx-web:20"
+    implementation 'net.sf.jtidy:jtidy:r938'
     implementation 'org.jsoup:jsoup:1.15.3'
 }
 

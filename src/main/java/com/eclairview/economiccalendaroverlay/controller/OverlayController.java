@@ -1,16 +1,15 @@
 package com.eclairview.economiccalendaroverlay.controller;
 
 import com.eclairview.economiccalendaroverlay.model.EconomicEvent;
-import javafx.collections.FXCollections;
+import com.eclairview.economiccalendaroverlay.parser.HtmlParser;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.HBox;
-import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 public class OverlayController {
 
@@ -21,23 +20,7 @@ public class OverlayController {
     private Button closeButton;
 
     @FXML
-    private WebView webView;
-
-    @FXML
     private TableView<EconomicEvent> tableView;
-
-    @FXML
-    private TableColumn<EconomicEvent, String> timeColumn;
-    @FXML
-    private TableColumn<EconomicEvent, String> currencyColumn;
-    @FXML
-    private TableColumn<EconomicEvent, String> eventColumn;
-    @FXML
-    private TableColumn<EconomicEvent, String> actualColumn;
-    @FXML
-    private TableColumn<EconomicEvent, String> forecastColumn;
-    @FXML
-    private TableColumn<EconomicEvent, String> previousColumn;
 
     private Stage stage;
 
@@ -68,20 +51,36 @@ public class OverlayController {
             }
         });
 
-        // Set up the table columns
+        setupTableView();
+
+        // Parse data and populate the table
+        HtmlParser parser = new HtmlParser();
+        ObservableList<EconomicEvent> events = parser.parseWebView();
+
+        tableView.setItems(events);
+    }
+
+    private void setupTableView() {
+        TableColumn<EconomicEvent, String> timeColumn = new TableColumn<>("Time");
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
+
+        TableColumn<EconomicEvent, String> currencyColumn = new TableColumn<>("Currency");
         currencyColumn.setCellValueFactory(new PropertyValueFactory<>("currency"));
-        eventColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+
+        TableColumn<EconomicEvent, String> eventColumn = new TableColumn<>("Event");
+        eventColumn.setCellValueFactory(new PropertyValueFactory<>("event"));
+
+        TableColumn<EconomicEvent, String> actualColumn = new TableColumn<>("Actual");
         actualColumn.setCellValueFactory(new PropertyValueFactory<>("actual"));
+
+        TableColumn<EconomicEvent, String> forecastColumn = new TableColumn<>("Forecast");
         forecastColumn.setCellValueFactory(new PropertyValueFactory<>("forecast"));
+
+        TableColumn<EconomicEvent, String> previousColumn = new TableColumn<>("Previous");
         previousColumn.setCellValueFactory(new PropertyValueFactory<>("previous"));
 
-        // Add some sample data to the table
-        ObservableList<EconomicEvent> data = FXCollections.observableArrayList(
-                new EconomicEvent("04:00", "NZD", "Performance of Services Index", "44.6", "40.7", ""),
-                new EconomicEvent("04:31", "GBP", "Rightmove House Price Index (MoM)", "-1.5%", "-0.4%", "")
-        );
-
-        tableView.setItems(data);
+        // Clear existing columns and add new ones to avoid duplication
+        tableView.getColumns().clear();
+        tableView.getColumns().addAll(timeColumn, currencyColumn, eventColumn, actualColumn, forecastColumn, previousColumn);
     }
 }

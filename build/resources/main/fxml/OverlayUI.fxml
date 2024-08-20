@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.web.WebView?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.VBox?>
@@ -15,7 +16,16 @@
             <Button fx:id="closeButton" text="X" styleClass="close-button"/>
         </HBox>
 
-        <!-- WebView for Economic Calendar -->
-        <WebView fx:id="webView" style="-fx-background-color: rgba(0, 0, 0, 0.2);"/>
+        <!-- TableView for Displaying Data -->
+        <TableView fx:id="tableView">
+            <columns>
+                <TableColumn fx:id="timeColumn" text="Time" />
+                <TableColumn fx:id="currencyColumn" text="Currency" />
+                <TableColumn fx:id="eventColumn" text="Event" />
+                <TableColumn fx:id="actualColumn" text="Actual" />
+                <TableColumn fx:id="forecastColumn" text="Forecast" />
+                <TableColumn fx:id="previousColumn" text="Previous" />
+            </columns>
+        </TableView>
     </VBox>
 </AnchorPane>
